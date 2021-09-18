@@ -82,6 +82,8 @@
 #' \code{viewer = TRUE}, then the Leaflet widget in \code{preview.html} will
 #' add map markers with coordinate labels on mouse click to assist with
 #' georeferencing of non-geographic tiles.
+#' @param reproject logical, indicating if input file should be reprojected to
+#' EPSG:4326.
 #' @param ... additional arguments for projected maps: reprojection method or
 #' any arguments to \code{raster::RGB}, e.g. \code{col} and \code{colNA}. See
 #' details. Other additional arguments \code{lng} and \code{lat} can also be
@@ -108,7 +110,7 @@
 #' if(length(extrafiles)) unlink(extrafiles, recursive = TRUE, force = TRUE)
 #' }
 tile <- function(file, tiles, zoom, crs = NULL, resume = FALSE, viewer = TRUE,
-                 georef = TRUE, ...){
+                 georef = TRUE, reproject = TRUE, ...){
   ext <- .get_ext(file)
   if(ext == "jpg" && !requireNamespace("jpeg", quietly = TRUE)){
     message(paste("jpg files are optionally supported (png recommended).",
@@ -203,7 +205,7 @@ tile <- function(file, tiles, zoom, crs = NULL, resume = FALSE, viewer = TRUE,
   } else if(!is.null(crs)){
     proj4 <- raster::projection(r) <- crs
   }
-  if(projected){
+  if(projected && isTRUE(reproject)){
     cat("Reprojecting raster...\n")
     e <- raster::projectExtent(r, crs = sp::CRS(wgs84))
     r <- raster::projectRaster(r, e, method = method)
