@@ -135,7 +135,7 @@ tile <- function(file, tiles, zoom, crs = NULL, resume = FALSE, viewer = TRUE,
     }
   }
   dir.create(tiles, showWarnings = FALSE, recursive = TRUE)
-  projected <- .proj_check(file, crs, ...)
+  projected <- .proj_check(file, crs, reproject = reproject, ...)
   if(ext %in% .supported_filetypes$ras)
     file <- file.path(tempdir(), "tmp_raster.tif")
   print(tempdir())
@@ -184,7 +184,7 @@ tile <- function(file, tiles, zoom, crs = NULL, resume = FALSE, viewer = TRUE,
   invisible()
 }
 
-.proj_check <- function(file, crs = NULL, ...){
+.proj_check <- function(file, crs = NULL, reproject = TRUE, ...){
   ext <- .get_ext(file)
   if(ext %in% .supported_filetypes$img) return(FALSE)
   dots <- list(...)
