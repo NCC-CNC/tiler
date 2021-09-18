@@ -143,7 +143,7 @@ tile <- function(file, tiles, zoom, crs = NULL, resume = FALSE, viewer = TRUE,
              showWarnings = FALSE, recursive = TRUE)
   if(projected){
     g2t <- system.file("python/gdal2tiles.py", package = "tiler")
-    ex <- paste0(ex, " \"", g2t, "\"  -p raster -z ", zoom, " -w none --tmpdir \"",
+    ex <- paste0(ex, " \"", g2t, "\"  -s EPSG:3857 -p raster -z ", zoom, " -w none --tmpdir \"",
                  normalizePath(g2t_tmp_dir), "\" ",
                  ifelse(resume, "-e ", ""), "\"",
                  normalizePath(file), "\" \"", normalizePath(tiles), "\"")
