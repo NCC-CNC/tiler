@@ -143,7 +143,7 @@ tile <- function(file, tiles, zoom, crs = NULL, resume = FALSE, viewer = TRUE,
              showWarnings = FALSE, recursive = TRUE)
   if(projected){
     g2t <- system.file("python/gdal2tiles.py", package = "tiler")
-    ex <- paste0(ex, " \"", g2t, "\"  -s EPSG:3857 -p raster -z ", zoom, " -w none --tmpdir \"",
+    ex <- paste0(ex, " \"", g2t, "\" -v -s EPSG:3857 -p raster -z ", zoom, " -w none --tmpdir \"",
                  normalizePath(g2t_tmp_dir), "\" ",
                  ifelse(resume, "-e ", ""), "\"",
                  normalizePath(file), "\" \"", normalizePath(tiles), "\"")
@@ -154,6 +154,8 @@ tile <- function(file, tiles, zoom, crs = NULL, resume = FALSE, viewer = TRUE,
                  ifelse(resume, "-e ", ""), "\"", normalizePath(file), "\" \"",
                  normalizePath(tiles), "\"")
   }
+  cat("System call:\n")
+  cat(ex, "\n")
   cat("Creating tiles. Please wait...\n")
   system(ex)
   unlink(g2t_tmp_dir, recursive = TRUE, force = TRUE)
