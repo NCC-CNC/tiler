@@ -730,6 +730,16 @@ def reproject_dataset(from_dataset, from_srs, to_srs, options=None):
     Returns the input dataset in the expected "destination" SRS.
     If the dataset is already in the correct SRS, returns it unmodified
     """
+
+
+    print("not reprojecting")
+    print("  from_srs")
+    print(from_srs)
+    print("  to_srs")
+    print(to_srs)
+    return from_dataset
+
+
     if not from_srs or not to_srs:
         raise GDALError("from and to SRS must be defined to reproject the dataset")
 
