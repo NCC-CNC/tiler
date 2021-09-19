@@ -732,7 +732,7 @@ def reproject_dataset(from_dataset, from_srs, to_srs, options=None):
     """
 
 
-    print("not reprojecting")
+    print("reproj details")
     print("  from_srs")
     print(from_srs)
     print("  to_srs")
@@ -744,6 +744,7 @@ def reproject_dataset(from_dataset, from_srs, to_srs, options=None):
         raise GDALError("from and to SRS must be defined to reproject the dataset")
 
     if (from_srs.ExportToProj4() != to_srs.ExportToProj4()) or (from_dataset.GetGCPCount() != 0):
+        print("REPROJECITNG DATA")
         to_dataset = gdal.AutoCreateWarpedVRT(from_dataset,
                                               from_srs.ExportToWkt(), to_srs.ExportToWkt())
 
