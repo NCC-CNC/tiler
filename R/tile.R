@@ -142,7 +142,8 @@ tile <- function(file, tiles, zoom, crs = NULL, resume = FALSE, viewer = TRUE,
   dir.create(g2t_tmp_dir <- file.path(tempdir(), "g2ttmp"),
              showWarnings = FALSE, recursive = TRUE)
   if(projected){
-    g2t <- system.file("python/gdal2tiles.py", package = "tiler")
+    #g2t <- system.file("python/gdal2tiles.py", package = "tiler")
+    g2t <- "/usr/bin/gdal2tiles.py"
     ex <- paste0(ex, " \"", g2t, "\" -s EPSG:3857 -p mercator -z ", zoom, " -w none --tmpdir \"",
                  normalizePath(g2t_tmp_dir), "\" ",
                  ifelse(resume, "-e ", ""), "\"",
